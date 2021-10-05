@@ -7,7 +7,7 @@ services:
     command: npm start
     container_name: ${API_CONTAINER_NAME}
     volumes:
-      - ts-api-data:/home/node/app
+      - .:/home/node/app
     ports:
       - $APP_PORT:$APP_DOCKER_PORT
       - 9229:9229
@@ -40,7 +40,6 @@ services:
 volumes:
   ts-api-mysql:
   ts-api-mysql_config:
-  ts-api-data:
 networks:
   api: {}
   db: {}
