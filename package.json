@@ -20,8 +20,13 @@
   },
   "scripts": {
     "start": "nodemon src/server.ts",
-    "start:prod": "ENVIRONMENT=production npm run build &&  pm2 start ./dist/server.js --name API",
-    "stop:prod": "ENVIRONMENT=production pm2 stop API",
+    "start:compose": "docker-compose up -d",
+    "start:compose:prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "pm2": "ENVIRONMENT=production npm run build:prod &&  pm2 start ./dist/server.js --name API",
+    "pm2:container": "ENVIRONMENT=production pm2-runtime node ./dist/server.js --name API",
+    "pm2:container:build": "ENVIRONMENT=production npm run build:prod &&  pm2-runtime node ./dist/server.js --name API",
+    "pm2:stop": "ENVIRONMENT=production pm2 stop API",
+    "pm2:status": "pm2 status",
     "build:prod": "ENVIRONMENT=production tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "format": "prettier --write ./src/**.*"
   },

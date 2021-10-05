@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  ts-api:
+    build:
+      context: .
+    env_file: ./.env
+    command: npm start
+    container_name: ${API_CONTAINER_NAME}
+    volumes:
+      - ts-api-data:/home/node/app
+    ports:
+      - $APP_PORT:$APP_DOCKER_PORT
+      - 9229:9229
+    networks:
+      - api
+      - db
+    depends_on:
+      - mysqldb
+    environment:
+      DB_HOST: mysqldb
+
+  mysqldb:
+    image: mysql:${DB_VERSION}
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: ${DB_CONTAINER_NAME}
+    env_file: ./.env
+    environment:
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+    ports:
+      - $DB_LOCAL_PORT:$DB_DOCKER_PORT
+    networks:
+      - db
+    volumes:
+      - ts-api-mysql:/var/lib/mysql
+      - ts-api-mysql_config:/etc/mysql
+
+volumes:
+  ts-api-mysql:
+  ts-api-mysql_config:
+  ts-api-data:
+networks:
+  api: {}
+  db: {}

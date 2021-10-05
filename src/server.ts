@@ -7,7 +7,7 @@ import cors from 'cors'
 import http from 'http'
 
 import environment from '@helpers/get-environment'
-const { port } = environment()
+const { localServerPort: port } = environment()
 
 const app = express()
 const server = http.createServer(app)
