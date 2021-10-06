@@ -14,7 +14,8 @@
     "paths": {
       "*": ["node_modules/*"],
       "@helpers/*": ["./src/helpers/*"],
-      "@config/*": ["./src/config/*"]
+      "@config/*": ["./src/config/*"],
+      "@models/*": ["./src/models/*"]
     }
   },
   "watchOptions": {

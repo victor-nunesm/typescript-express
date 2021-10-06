@@ -7,11 +7,12 @@ import cors from 'cors'
 import http from 'http'
 
 import environment from '@helpers/get-environment'
-import database from '@config/sequelize'
+import database from '@models/index'
 
 const app = express()
 const server = http.createServer(app)
 
+// Sequelize config
 database.sequelize.sync().catch((e) => console.error(e))
 
 app.use(cors())
