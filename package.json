@@ -20,13 +20,9 @@
   },
   "scripts": {
     "start": "nodemon src/server.ts",
+    "start:prod": "ENVIRONMENT=production node -r tsconfig-paths/register -r ts-node/register ./src/server.ts",
     "start:compose": "docker-compose up -d",
     "start:compose:prod": "docker-compose -f docker-compose.prod.yml up -d",
-    "pm2": "ENVIRONMENT=production npm run build:prod &&  pm2 start ./dist/server.js --name API",
-    "pm2:container": "ENVIRONMENT=production pm2-runtime node ./dist/server.js --name API",
-    "pm2:container:build": "ENVIRONMENT=production npm run build:prod &&  pm2-runtime node ./dist/server.js --name API",
-    "pm2:stop": "ENVIRONMENT=production pm2 stop API",
-    "pm2:status": "pm2 status",
     "build:prod": "ENVIRONMENT=production tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "format": "prettier --write ./src/**.*"
   },
@@ -45,7 +41,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "nodemon": "^2.0.13",
-    "pm2": "^5.1.2",
     "prettier": "^2.4.1",
     "ts-node": "^10.2.1",
     "tsconfig-paths": "^3.11.0",

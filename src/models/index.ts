@@ -29,8 +29,10 @@ function filterByTypescriptFile(fileName: string) {
 function setupAssociations(sequelize: Sequelize): void {
   // All associations must be specified here
   const { User, Car } = sequelize.models
-  User.hasMany(Car, { foreignKey: 'userId', sourceKey: 'id' })
-  Car.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' })
+  if (User && Car) {
+    User.hasMany(Car, { foreignKey: 'userId', sourceKey: 'id' })
+    Car.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' })
+  } else return
 }
 
 export default db

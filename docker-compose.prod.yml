@@ -8,8 +8,9 @@ services:
       resources:
         limits:
           memory: 256M
+    env_file: ./.env
     restart: always
-    command: npm run pm2:container
+    command: npm run start:prod
     container_name: ${API_CONTAINER_NAME}
     ports:
       - $APP_PORT:$APP_DOCKER_PORT
@@ -29,6 +30,7 @@ services:
       resources:
         limits:
           memory: 380M
+    env_file: ./.env
     command: --default-authentication-plugin=mysql_native_password
     container_name: ${DB_CONTAINER_NAME}
     environment:
