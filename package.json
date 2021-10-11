@@ -24,6 +24,8 @@
     "start:compose": "docker-compose up -d",
     "start:compose:prod": "docker-compose -f docker-compose.prod.yml up -d",
     "build:prod": "ENVIRONMENT=production tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "compose:rebuild": "docker-compose down && docker rmi typescript-express_ts-api && npm run start:compose",
+    "compose:rebuild:prod": "docker-compose down && docker rmi typescript-express_ts-api && npm run start:compose:prod",
     "format": "prettier --write ./src/**.*"
   },
   "devDependencies": {
