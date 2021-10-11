@@ -4,6 +4,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+    deploy:
+      resources:
+        limits:
+          memory: 256M
     restart: always
     command: npm run pm2:container
     container_name: ${API_CONTAINER_NAME}
@@ -21,6 +25,10 @@ services:
 
   mysqldb:
     image: mysql:${DB_VERSION}
+    deploy:
+      resources:
+        limits:
+          memory: 380M
     command: --default-authentication-plugin=mysql_native_password
     container_name: ${DB_CONTAINER_NAME}
     environment:
