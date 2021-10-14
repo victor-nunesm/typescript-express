@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "nodemon src/server.ts",
-    "start:prod": "ENVIRONMENT=production node -r tsconfig-paths/register -r ts-node/register ./src/server.ts",
+    "start:prod": "node ./dist/server.js",
     "start:compose": "docker-compose up -d",
     "start:compose:prod": "docker-compose -f docker-compose.prod.yml up -d",
     "build:prod": "ENVIRONMENT=production tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",

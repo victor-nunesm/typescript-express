@@ -8,6 +8,7 @@ export default {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     dialect: 'mysql',
+    production: process.env.NODE_ENV,
   },
   production: {
     localServerPort: process.env.APP_DOCKER_PORT,
@@ -18,5 +19,6 @@ export default {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     dialect: 'mysql',
+    production: process.env.NODE_ENV,
   },
 }

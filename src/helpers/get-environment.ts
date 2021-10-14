@@ -21,4 +21,5 @@ interface Environment {
   password: string
   database: string
   dialect: string
+  production: any
 }

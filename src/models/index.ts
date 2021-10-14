@@ -3,6 +3,9 @@ import path from 'path'
 import fs from 'fs'
 
 import db from '@config/sequelize'
+import getEnvironment from '@helpers/get-environment'
+
+const { production: isProduction } = getEnvironment()
 
 // Import models from current directory into db instance object
 fs.readdirSync(__dirname)
@@ -10,7 +13,9 @@ fs.readdirSync(__dirname)
   .forEach((file: string) => {
     try {
       const currModel = require(`./${file}`)
-      currModel.default(db.sequelize)
+      if (currModel.default) {
+        currModel.default(db.sequelize)
+      }
     } catch (error) {
       console.error(error)
     }
@@ -19,11 +24,11 @@ fs.readdirSync(__dirname)
 setupAssociations(db.sequelize)
 
 function filterByTypescriptFile(fileName: string) {
-  return (
-    fileName.indexOf('.') !== 0 &&
+  return fileName.indexOf('.') !== 0 &&
     fileName !== path.basename(__filename) &&
-    fileName.slice(-3) === '.ts'
-  )
+    fileName.slice(-3) === isProduction
+    ? '.js'
+    : '.ts'
 }
 
 function setupAssociations(sequelize: Sequelize): void {
